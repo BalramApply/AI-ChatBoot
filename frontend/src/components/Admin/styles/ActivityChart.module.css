@@ -1,0 +1,496 @@
+/* ============================================
+   ACTIVITY CHART - DARK THEME WITH ANIMATIONS
+   ============================================ */
+
+/* Chart Container */
+.chartContainer {
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+              0 0 1px rgba(99, 102, 241, 0.3);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: slideInUp 0.6s ease-out;
+}
+
+.chartContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+  animation: scanline 3s linear infinite;
+}
+
+.chartContainer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+/* Chart Title */
+.chartTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #e5e7eb 0%, #9ca3af 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.5s ease-out 0.2s both;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 2rem;
+  color: #9ca3af;
+  font-size: 0.9375rem;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Chart Content */
+.chartContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Chart Row */
+.chartRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  animation: slideInLeft 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.chartRow:nth-child(1) { animation-delay: 0.1s; }
+.chartRow:nth-child(2) { animation-delay: 0.15s; }
+.chartRow:nth-child(3) { animation-delay: 0.2s; }
+.chartRow:nth-child(4) { animation-delay: 0.25s; }
+.chartRow:nth-child(5) { animation-delay: 0.3s; }
+.chartRow:nth-child(6) { animation-delay: 0.35s; }
+.chartRow:nth-child(7) { animation-delay: 0.4s; }
+
+/* Day Label */
+.dayLabel {
+  width: 4rem;
+  font-size: 0.875rem;
+  color: #d1d5db;
+  font-weight: 500;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+
+/* Bars Container */
+.barsContainer {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  height: 5rem;
+  position: relative;
+}
+
+/* Bar Wrapper */
+.barWrapper {
+  flex: 1;
+  background: rgba(17, 24, 39, 0.6);
+  border-radius: 0.5rem 0.5rem 0 0;
+  position: relative;
+  border: 1px solid rgba(75, 85, 99, 0.2);
+  border-bottom: none;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.barWrapper:hover {
+  background: rgba(31, 41, 55, 0.7);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* Messages Bar */
+.barMessages {
+  width: 100%;
+  background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);
+  border-radius: 0.5rem 0.5rem 0 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 -4px 12px rgba(99, 102, 241, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  animation: barGrow 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.barMessages::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.barWrapper:hover .barMessages {
+  background: linear-gradient(180deg, #818cf8 0%, #6366f1 100%);
+  box-shadow: 0 -6px 20px rgba(99, 102, 241, 0.6),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scaleY(1.05);
+}
+
+/* Chats Bar */
+.barChats {
+  width: 100%;
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  border-radius: 0.5rem 0.5rem 0 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 -4px 12px rgba(16, 185, 129, 0.4),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  animation: barGrow 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.barChats::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
+  animation: shimmer 2s ease-in-out infinite 0.5s;
+}
+
+.barWrapper:hover .barChats {
+  background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+  box-shadow: 0 -6px 20px rgba(16, 185, 129, 0.6),
+              inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scaleY(1.05);
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  top: -2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(10px);
+  color: #f3f4f6;
+  font-size: 0.75rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: rgba(17, 24, 39, 0.95);
+}
+
+.barWrapper:hover .tooltip {
+  opacity: 1;
+  top: -2.75rem;
+}
+
+/* Stats Label */
+.statsLabel {
+  width: 5rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  gap: 0.125rem;
+}
+
+.statsLabel span {
+  transition: color 0.3s ease;
+}
+
+.chartRow:hover .statsLabel span {
+  color: #d1d5db;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(75, 85, 99, 0.3);
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.5s ease-out 0.5s both;
+}
+
+.legend::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.legendItem:hover {
+  transform: translateY(-2px);
+}
+
+.legendColorMessages,
+.legendColorChats {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.legendColorMessages {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.5);
+}
+
+.legendColorChats {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.5);
+}
+
+.legendItem:hover .legendColorMessages {
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.7);
+  transform: scale(1.2);
+}
+
+.legendItem:hover .legendColorChats {
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.7);
+  transform: scale(1.2);
+}
+
+.legendText {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  transition: color 0.3s ease;
+}
+
+.legendItem:hover .legendText {
+  color: #d1d5db;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes barGrow {
+  from {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+  to {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .chartContainer {
+    padding: 1.25rem;
+  }
+
+  .chartTitle {
+    font-size: 1rem;
+  }
+
+  .chartContent {
+    gap: 0.875rem;
+  }
+
+  .chartRow {
+    gap: 0.5rem;
+  }
+
+  .dayLabel {
+    width: 3rem;
+    font-size: 0.8125rem;
+  }
+
+  .barsContainer {
+    height: 4rem;
+  }
+
+  .statsLabel {
+    width: 4rem;
+    font-size: 0.6875rem;
+  }
+
+  .legend {
+    gap: 1rem;
+  }
+
+  .legendText {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .chartContainer {
+    padding: 1rem;
+  }
+
+  .chartTitle {
+    font-size: 0.9375rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .chartContent {
+    gap: 0.75rem;
+  }
+
+  .dayLabel {
+    width: 2.5rem;
+    font-size: 0.75rem;
+  }
+
+  .barsContainer {
+    height: 3.5rem;
+    gap: 0.375rem;
+  }
+
+  .statsLabel {
+    display: none;
+  }
+
+  .tooltip {
+    font-size: 0.6875rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .barMessages,
+  .barChats {
+    animation: none;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.chartRow:focus-within {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}

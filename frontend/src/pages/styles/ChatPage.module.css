@@ -1,0 +1,487 @@
+/* ============================================
+   CHAT PAGE - DARK THEME WITH ANIMATIONS
+   ============================================ */
+
+/* Page Container */
+.pageContainer {
+  height: 100vh;
+  display: flex;
+  background: linear-gradient(135deg, #0a0e1a 0%, #0f1419 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.pageContainer::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  animation: backgroundShift 20s ease-in-out infinite;
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+
+.loadingContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a0e1a 0%, #0f1419 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.loadingContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  animation: loadingPulse 2s ease-in-out infinite;
+}
+
+.loadingContent {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: fadeInScale 0.6s ease-out;
+}
+
+.spinner {
+  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid rgba(99, 102, 241, 0.2);
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  animation: spin 0.8s linear infinite;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+.loadingText {
+  color: #9ca3af;
+  font-size: 0.9375rem;
+  animation: fadeIn 0.5s ease-out 0.3s both;
+}
+
+/* ============================================
+   MOBILE TOGGLE BUTTON
+   ============================================ */
+
+.mobileToggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.95) 0%, rgba(17, 24, 39, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5),
+              0 0 20px rgba(99, 102, 241, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.mobileToggle:hover {
+  background: linear-gradient(135deg, rgba(55, 65, 81, 0.95) 0%, rgba(31, 41, 55, 0.95) 100%);
+  border-color: rgba(99, 102, 241, 0.5);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6),
+              0 0 30px rgba(99, 102, 241, 0.3);
+}
+
+.toggleIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #e5e7eb;
+  transition: transform 0.3s ease;
+}
+
+.mobileToggle:active .toggleIcon {
+  transform: rotate(90deg);
+}
+
+/* ============================================
+   SIDEBAR WRAPPER
+   ============================================ */
+
+.sidebarWrapper {
+  position: relative;
+  z-index: 40;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebarOpen {
+  transform: translateX(0);
+}
+
+.sidebarClosed {
+  transform: translateX(0);
+}
+
+/* ============================================
+   MAIN CONTENT AREA
+   ============================================ */
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* ============================================
+   CHAT HEADER
+   ============================================ */
+
+.chatHeader {
+  background: linear-gradient(180deg, rgba(15, 20, 25, 0.95) 0%, rgba(10, 15, 20, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 10;
+  animation: slideInDown 0.5s ease-out;
+}
+
+.chatHeader::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+  animation: scanline 3s linear infinite;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerInfo {
+  flex: 1;
+}
+
+.chatTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #e5e7eb 0%, #9ca3af 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.25rem;
+  animation: fadeIn 0.5s ease-out 0.2s both;
+}
+
+.messageCount {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  animation: fadeIn 0.5s ease-out 0.3s both;
+}
+
+/* ============================================
+   MOBILE OVERLAY
+   ============================================ */
+
+.mobileOverlay {
+  display: none;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes backgroundShift {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - TABLET
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .chatHeader {
+    padding: 0.875rem 1.25rem;
+  }
+
+  .chatTitle {
+    font-size: 1.125rem;
+  }
+
+  .messageCount {
+    font-size: 0.8125rem;
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - MOBILE
+   ============================================ */
+
+@media (max-width: 1023px) {
+  .mobileToggle {
+    display: block;
+  }
+
+  .sidebarWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 80%;
+    max-width: 20rem;
+  }
+
+  .sidebarClosed {
+    transform: translateX(-100%);
+  }
+
+  .mobileOverlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 30;
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .chatHeader {
+    padding: 1rem;
+    padding-left: 4rem; /* Account for mobile toggle button */
+  }
+}
+
+@media (max-width: 768px) {
+  .chatTitle {
+    font-size: 1rem;
+  }
+
+  .messageCount {
+    font-size: 0.75rem;
+  }
+
+  .spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .loadingText {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebarWrapper {
+    width: 85%;
+  }
+
+  .chatHeader {
+    padding: 0.75rem;
+    padding-left: 3.5rem;
+  }
+
+  .chatTitle {
+    font-size: 0.9375rem;
+  }
+
+  .messageCount {
+    font-size: 0.6875rem;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR (GLOBAL FOR PAGE)
+   ============================================ */
+
+.pageContainer ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.pageContainer ::-webkit-scrollbar-track {
+  background: rgba(15, 20, 25, 0.5);
+  border-radius: 4px;
+}
+
+.pageContainer ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.6), rgba(139, 92, 246, 0.6));
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.pageContainer ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(99, 102, 241, 0.8), rgba(139, 92, 246, 0.8));
+}
+
+/* ============================================
+   NETWORK STATUS INDICATOR (BONUS)
+   ============================================ */
+
+.networkStatus {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(31, 41, 55, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 50;
+  animation: slideInRight 0.5s ease-out;
+}
+
+.networkStatusDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.networkStatusDot.offline {
+  background: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ============================================
+   FOCUS STATES
+   ============================================ */
+
+.mobileToggle:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}

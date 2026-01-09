@@ -1,0 +1,179 @@
+# ===========================================================
+# AI Chatbot API Testing
+# ===========================================================
+
+### Health Check
+GET http://localhost:5000/
+Accept: application/json
+
+### Signup new user
+POST http://localhost:5000/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "ballu",
+  "email": "ball@example.com",
+  "password": "StrongPass@123"
+}
+
+###
+
+### Login user
+POST https://ai-balram.onrender.com/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "ballu@example.com",
+  "password": "StrongPass@123"
+}
+
+### admin login
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": ""
+}
+
+###
+
+### Check password strength
+POST http://localhost:5000/api/auth/check-password
+Content-Type: application/json
+
+{
+  "password": "WeakPass"
+}
+
+###
+
+### Get current user (Protected)
+GET http://localhost:5000/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2N2VkOTY0ZjkyZWU5NTE5ODM3NyIsImlhdCI6MTc2Nzg2MDIzMywiZXhwIjoxNzY4NDY1MDMzfQ.LE2HiOGHFGvTudVLPq-wi0njV8VJ5IBVMvK3tBchDHU
+
+###
+### Start or get active chat
+POST http://localhost:5000/api/chat/start
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2N2VkOTY0ZjkyZWU5NTE5ODM3NyIsImlhdCI6MTc2Nzg2MDIzMywiZXhwIjoxNzY4NDY1MDMzfQ.LE2HiOGHFGvTudVLPq-wi0njV8VJ5IBVMvK3tBchDHU
+Content-Type: application/json
+
+###
+
+### Send a message and get AI response
+POST http://localhost:5000/api/chat/message
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2N2VkOTY0ZjkyZWU5NTE5ODM3NyIsImlhdCI6MTc2Nzg2MDIzMywiZXhwIjoxNzY4NDY1MDMzfQ.LE2HiOGHFGvTudVLPq-wi0njV8VJ5IBVMvK3tBchDHU
+Content-Type: application/json
+
+{
+  "chatId": "695f6e019d83aaefad0412a3",
+  "message": "Hello AI"
+}
+
+###
+
+### Get user's chat history
+GET http://localhost:5000/api/chat/history?page=1&limit=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2N2VkOTY0ZjkyZWU5NTE5ODM3NyIsImlhdCI6MTc2Nzg2MDIzMywiZXhwIjoxNzY4NDY1MDMzfQ.LE2HiOGHFGvTudVLPq-wi0njV8VJ5IBVMvK3tBchDHU
+
+###
+
+### Get messages from specific chat
+GET http://localhost:5000/api/chat/695f6886964f92ee95198381/messages?page=1&limit=50
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2N2VkOTY0ZjkyZWU5NTE5ODM3NyIsImlhdCI6MTc2Nzg2MDIzMywiZXhwIjoxNzY4NDY1MDMzfQ.LE2HiOGHFGvTudVLPq-wi0njV8VJ5IBVMvK3tBchDHU
+
+###
+
+### Add reaction to a message
+POST http://localhost:5000/api/chat/message/695f68a8964f92ee95198385/react
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2N2VkOTY0ZjkyZWU5NTE5ODM3NyIsImlhdCI6MTc2Nzg2MDIzMywiZXhwIjoxNzY4NDY1MDMzfQ.LE2HiOGHFGvTudVLPq-wi0njV8VJ5IBVMvK3tBchDHU
+Content-Type: application/json
+
+{
+  "reactionType": "thumbsUp"
+}
+
+###
+
+### Delete a chat
+DELETE http://localhost:5000/api/chat/695f6886964f92ee95198381
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2N2VkOTY0ZjkyZWU5NTE5ODM3NyIsImlhdCI6MTc2Nzg2MDIzMywiZXhwIjoxNzY4NDY1MDMzfQ.LE2HiOGHFGvTudVLPq-wi0njV8VJ5IBVMvK3tBchDHU
+
+###
+
+### Export chat (JSON format)
+GET http://localhost:5000/api/chat/695f6e019d83aaefad0412a3/export?format=json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2N2VkOTY0ZjkyZWU5NTE5ODM3NyIsImlhdCI6MTc2Nzg2MDIzMywiZXhwIjoxNzY4NDY1MDMzfQ.LE2HiOGHFGvTudVLPq-wi0njV8VJ5IBVMvK3tBchDHU
+
+###
+
+### Export chat (TXT format)
+GET http://localhost:5000/api/chat/695f6e019d83aaefad0412a3/export?format=txt
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2N2VkOTY0ZjkyZWU5NTE5ODM3NyIsImlhdCI6MTc2Nzg2MDIzMywiZXhwIjoxNzY4NDY1MDMzfQ.LE2HiOGHFGvTudVLPq-wi0njV8VJ5IBVMvK3tBchDHU
+
+@baseUrl = http://localhost:5000
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NWY2NzAzNjg3YWNmZGU5N2I1NmU0YyIsImlhdCI6MTc2Nzg2MjAzNCwiZXhwIjoxNzY4NDY2ODM0fQ.5ZUQI3N9rUZamvJV-ZA-12C-D7RKXo203IVAqxc4XeQ
+@userId = 695f704ebf0b14b261e62b2b
+
+### ===============================
+### Admin Analytics
+### ===============================
+
+### Get Dashboard Analytics
+GET {{baseUrl}}/api/admin/analytics
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+
+### ===============================
+### System Statistics
+### ===============================
+
+### Get System Stats
+GET {{baseUrl}}/api/admin/stats
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+
+### ===============================
+### User Management
+### ===============================
+
+### Get All Users (Default)
+GET {{baseUrl}}/api/admin/users
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+
+### Get Users with Pagination & Filters
+GET {{baseUrl}}/api/admin/users?page=1&limit=10&search=john&status=active
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+
+### Get Single User Details
+GET {{baseUrl}}/api/admin/users/{{userId}}
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+
+### ===============================
+### User Actions
+### ===============================
+
+### Deactivate User
+PUT {{baseUrl}}/api/admin/users/{{userId}}/deactivate
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+
+### Activate User
+PUT {{baseUrl}}/api/admin/users/{{userId}}/activate
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+
+### Delete User (Permanent)
+DELETE {{baseUrl}}/api/admin/users/{{userId}}
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json

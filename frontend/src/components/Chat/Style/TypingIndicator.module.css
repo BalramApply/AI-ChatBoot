@@ -1,0 +1,434 @@
+/* ============================================
+   TYPING INDICATOR - DARK THEME WITH ANIMATIONS
+   ============================================ */
+
+/* Container */
+.container {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  animation: fadeInUp 0.4s ease-out;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* Avatar Wrapper */
+.avatarWrapper {
+  flex-shrink: 0;
+  animation: avatarPop 0.5s ease-out 0.2s;
+  animation-fill-mode: both;
+}
+
+/* Avatar */
+.avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4),
+              0 0 20px rgba(99, 102, 241, 0.3);
+  position: relative;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.avatar::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #6366f1, #8b5cf6, #6366f1);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0.5;
+  animation: rotate 3s linear infinite;
+  filter: blur(6px);
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #ffffff;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  animation: iconBreathe 2s ease-in-out infinite;
+}
+
+/* Bubble */
+.bubble {
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 0.9) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  border-radius: 1rem;
+  border-top-left-radius: 0.25rem;
+  padding: 0.875rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: bubbleSlideIn 0.5s ease-out 0.1s both;
+}
+
+.bubble::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+  animation: scanline 2s linear infinite;
+}
+
+/* Dots Container */
+.dotsContainer {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Individual Dot */
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4),
+              0 0 12px rgba(99, 102, 241, 0.3);
+  animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes avatarPop {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4),
+                0 0 20px rgba(99, 102, 241, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.6),
+                0 0 30px rgba(99, 102, 241, 0.5);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes iconBreathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bubbleSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4),
+                0 0 12px rgba(99, 102, 241, 0.3);
+  }
+  30% {
+    transform: translateY(-12px) scale(1.2);
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.6),
+                0 0 20px rgba(99, 102, 241, 0.5);
+  }
+}
+
+/* ============================================
+   VARIANTS (BONUS)
+   ============================================ */
+
+/* Wave Animation Variant */
+.waveContainer {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.waveDot {
+  width: 0.375rem;
+  height: 1.5rem;
+  background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 100%);
+  border-radius: 0.25rem;
+  animation: wave 1.2s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+}
+
+.waveDot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.waveDot:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.waveDot:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.waveDot:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+.waveDot:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+@keyframes wave {
+  0%, 100% {
+    height: 0.5rem;
+    opacity: 0.5;
+  }
+  50% {
+    height: 1.5rem;
+    opacity: 1;
+  }
+}
+
+/* Pulse Animation Variant */
+.pulseContainer {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.pulseDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #6366f1;
+  animation: pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+}
+
+.pulseDot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.pulseDot:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.pulseDot:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+  }
+  50% {
+    transform: scale(1.3);
+    box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+  }
+}
+
+/* Spinner Animation Variant */
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.spinner {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid rgba(99, 102, 241, 0.2);
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Ellipsis Animation Variant */
+.ellipsisContainer {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.ellipsisDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: #6366f1;
+  animation: ellipsis 1.4s ease-in-out infinite;
+}
+
+.ellipsisDot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.ellipsisDot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.ellipsisDot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes ellipsis {
+  0%, 60%, 100% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .avatar {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  .bubble {
+    padding: 0.75rem 0.875rem;
+  }
+
+  .dot {
+    width: 0.4375rem;
+    height: 0.4375rem;
+  }
+
+  .dotsContainer {
+    gap: 0.3125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .dot {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .dot:nth-child(1) {
+    opacity: 1;
+  }
+  .dot:nth-child(2) {
+    opacity: 0.7;
+  }
+  .dot:nth-child(3) {
+    opacity: 0.4;
+  }
+}
